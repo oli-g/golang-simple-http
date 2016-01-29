@@ -1,7 +1,4 @@
-language: go
 sudo: required
-go:
-  - 1.5
 services:
   - docker
 before_install:
@@ -10,5 +7,6 @@ before_install:
   - docker run -v $(pwd):/tmp/dist app-build
   - docker build -t app -f docker/dist/Dockerfile .
   - docker run -d -p 8080:8080 --name app app
+  - docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=p4ssw0rd mysql:5.7.10
 script:
   - docker ps | grep -q app
